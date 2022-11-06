@@ -1,0 +1,46 @@
+cd nginx
+
+docker run -itd -p 8090:80 -v ${PWD}/html:/usr/share/nginx/html nginx
+
+docker run -it -v ${PWD}:/app python:alpine python /app/main.py
+
+docker build . -t python-custom
+
+docker run -it python-custom
+
+docker run -it python-custom sh
+
+cd ..
+
+ls
+
+exit
+
+docker run -d --name=mongo mongo
+
+docker logs mongo
+
+docker run -it python-custom sh
+ping mongo
+ping 172.17.0.2
+hostname
+hostname -i
+
+docker network list
+docker network create python-mongo
+
+docker network connect python-mongo mongo
+
+docker run -it --network=python-mongo python-custom
+docker run -it --network=python-mongo python-custom sh
+
+docker network remove python-mongo
+
+
+docker-compose up
+
+sudo docker-compose down
+
+docker compose up --build
+
+docker volume list
